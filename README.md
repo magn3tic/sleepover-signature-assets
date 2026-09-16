@@ -33,7 +33,30 @@ https://magn3tic.github.io/sleepover-signature-assets/icons/mail.png
 icons/      shared chrome: location, mail, phone-1, phone-2, website
 regions/    region lockups: so-tanzania.png, so-south-africa.png, …
 names/      per-person name artwork, by region: names/tanzania/agnes-busunzu.png
+pages/      the 83 signature pages, plus index.html
 ```
+
+## The pages
+
+`pages/` is what the 83 people actually open to copy their signature:
+
+```
+https://magn3tic.github.io/sleepover-signature-assets/pages/index.html
+https://magn3tic.github.io/sleepover-signature-assets/pages/Piers-Bunting.html
+```
+
+`index.html` is the master page — every signature, grouped by region, each with
+its own copy button. Each person's own link is also written into column K of the
+workbook, so it can be sent straight from there.
+
+Two different jobs in one repo, and the difference matters. The images are
+pinned by tag and must never change under a signature already sitting in
+someone's mail client. The pages are expected to change, and are served off
+`main`. Pushing a page therefore does not touch what `@v1.0.0` serves.
+
+The pages are generated — they are built from the workbook by the pipeline in
+`magn3tic/sleepover-signature-pipeline` and copied here by its
+`publish-pages.sh`. Editing one by hand is overwritten on the next build.
 
 ## Filenames
 
