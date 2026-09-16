@@ -46,11 +46,21 @@ screens — `names/tanzania/agnes-busunzu.png` is 462×112 for a 231×56 slot.
 
 ## Where the files came from
 
-Downloaded from the live HubSpot URLs (`magneticcreative.com/hubfs/SleepOver
-Signature/…`) — the exact bytes recipients were already loading, not the local
-originals, which HubSpot had re-optimized on upload. The old URL → new path
-mapping is kept outside this repo in `signature-migration/url-map.json`, next to
-the tooling that does the mirroring.
+The originals in `SleepOver/assets`, not what HubSpot serves.
+
+HubSpot re-compresses uploads with a lossy optimiser, and it does not do it
+once: the same `location.png` came back as 784 bytes in one run of the mirroring
+script and 527 bytes in the next, with different pixels. The larger variant is
+pixel-identical to the local original, so the local file is the artwork and
+HubSpot had been serving a degraded copy of it.
+
+One exception: `names/international/claudie-osborne.png` came from HubSpot,
+because the local file was a byte-identical copy of Charles Gover's artwork.
+HubSpot had the only correct copy, so it is the lossy variant until someone
+re-exports it.
+
+The old URL → new path mapping lives outside this repo, in
+`signature-migration/url-map.json`, next to the tooling that does the mirroring.
 
 Nothing has been deleted from HubSpot. Those files stay live until every
 signature has been migrated and confirmed.
