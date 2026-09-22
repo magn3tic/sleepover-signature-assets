@@ -10,7 +10,7 @@ they live in a repo with stable, versioned URLs.
 Always through jsDelivr, always pinned to a tag:
 
 ```
-https://cdn.jsdelivr.net/gh/magn3tic/sleepover-signature-assets@v1.0.0/icons/mail.png
+https://cdn.jsdelivr.net/gh/magn3tic/sleepover-signature-assets@v1.1.0/icons/mail.png
 ```
 
 A tag is immutable on jsDelivr: once a version has been served it is cached
@@ -32,13 +32,14 @@ https://magn3tic.github.io/sleepover-signature-assets/icons/mail.png
 ```
 icons/      shared chrome: location, mail, phone-1, phone-2, website
 regions/    region lockups: so-tanzania.png, so-south-africa.png, …
+            plus so-tagline.png, the region-neutral one
 names/      per-person name artwork, by region: names/tanzania/agnes-busunzu.png
-pages/      the 83 signature pages, plus index.html
+pages/      the 84 signature pages, plus index.html
 ```
 
 ## The pages
 
-`pages/` is what the 83 people actually open to copy their signature:
+`pages/` is what the 84 people actually open to copy their signature:
 
 ```
 https://magn3tic.github.io/sleepover-signature-assets/pages/index.html
@@ -52,11 +53,24 @@ workbook, so it can be sent straight from there.
 Two different jobs in one repo, and the difference matters. The images are
 pinned by tag and must never change under a signature already sitting in
 someone's mail client. The pages are expected to change, and are served off
-`main`. Pushing a page therefore does not touch what `@v1.0.0` serves.
+`main`. Pushing a page therefore does not touch what `@v1.1.0` serves.
 
 The pages are generated — they are built from the workbook by the pipeline in
 `magn3tic/sleepover-signature-pipeline` and copied here by its
 `publish-pages.sh`. Editing one by hand is overwritten on the next build.
+
+## The tagline lockup
+
+`regions/so-tagline.png` is the SleepOver lockup with *A SIMPLER WAY TO STAY*
+under it, and it names no region. It sits in `regions/` because that is where
+the build looks for a lockup, not because it is one.
+
+It exists because the newer name artwork carries its own region badge — Zanele
+Nkonki's PNG has *SOUTH AFRICA* on it, the other 52 South Africa images do not.
+A card whose name artwork already says the region takes this lockup; a card
+whose artwork does not takes `so-<region>.png`. Which one a person gets is
+column J of the workbook, and the build measures whichever file that column
+names, so the two shapes both place correctly.
 
 ## Filenames
 
