@@ -99,21 +99,6 @@ h1,h2,h3{margin:0; font-weight:700; line-height:1.15;}
 .pane-dark .pane-body .so-rule-fill{background-color:#fff !important;}
 .note{margin:var(--sp-3) 0 0; font-size:13px; line-height:1.5; color:var(--text-dim);}
 
-/* ---- flags ---- */
-.flags{border:1px solid var(--border); border-left:3px solid var(--secondary); border-radius:var(--r); background:rgba(181,151,86,.07);}
-.flags summary{
-  display:flex; align-items:center; gap:var(--sp-2); cursor:pointer;
-  padding:var(--sp-3) var(--sp-4); font-size:14px; font-weight:700;
-  list-style:none;
-}
-.flags summary::-webkit-details-marker{display:none;}
-.flags summary svg{width:16px; height:16px; color:var(--secondary); flex:none;}
-.flags ul{margin:0; padding:0 var(--sp-6) var(--sp-4) 40px; font-size:14px; line-height:1.6; color:var(--text);}
-.flags li{margin-bottom:var(--sp-4);}
-.flags li:last-child{margin-bottom:0;}
-.flags b{color:var(--secondary);}
-.flags .why{display:block; margin-top:2px; font-size:13px; color:var(--text-dim); max-width:76ch;}
-
 .sr-only{
   position:absolute; width:1px; height:1px; padding:0; margin:-1px;
   overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;
@@ -192,13 +177,10 @@ h1,h2,h3{margin:0; font-weight:700; line-height:1.15;}
   text-decoration:underline; cursor:pointer;
 }
 
-.flags{margin:var(--sp-6) 0;}
-
-/* While a search is active the intro and the build notes are about the whole
-   set, not the handful on screen, so they get out of the way and the results
-   sit directly under the toolbar. */
-body.is-filtering .hero,
-body.is-filtering .flags{display:none;}
+/* While a search is active the intro is about the whole set, not the handful
+   on screen, so it gets out of the way and the results sit directly under the
+   toolbar. */
+body.is-filtering .hero{display:none;}
 body.is-filtering .region:first-of-type{margin-top:var(--sp-8);}
 
 .region{margin:var(--sp-12) 0;}
@@ -283,31 +265,6 @@ footer code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; fo
        inversion, and use <b>Copy</b> on any card to put that one on the clipboard.</p>
   </div>
 
-  <details class="flags" open>
-    <summary><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.7 18-8-14a2 2 0 0 0-3.4 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.7-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><span>5 things to look at before sign-off</span></summary>
-    <ul>
-      <li>
-        <b>Name artwork wider than the column</b> &mdash; 18 people: International (1), South Africa (14), Nigeria (1), Botswana (1), Namibia (1).
-        <span class="why">placed smaller than the standard half-size so it fits beside the divider. Re-export the artwork narrower to match the others. 682px wide, placed at 300px, 12% smaller than the rest.</span>
-      </li>
-      <li>
-        <b>Address was a single line</b> &mdash; 57 people: South Africa (50), Safaris (2), Nigeria (5).
-        <span class="why">column F held one long line, so it was wrapped on its commas to fit the 188px column. Put your own line breaks in the cell to control where it splits.</span>
-      </li>
-      <li>
-        <b>Same name on two sheets</b> &mdash; 2 people: Patrick Scott &mdash; South Africa; Michael Richardson &mdash; South Africa.
-        <span class="why">two different people share a name, so the second one's page had to be renamed to keep the first one's published link working. International already owns that page name, so this one is Patrick-Scott-South-Africa.html.</span>
-      </li>
-      <li>
-        <b>No personal phone in the workbook</b> &mdash; 40 people: South Africa (40).
-        <span class="why">column D is empty, so the phone row under the name is left out entirely. That is right for a shared inbox or a reception desk; fill column D and rebuild if the person does have a direct number.</span>
-      </li>
-      <li>
-        <b>No office phone in the workbook</b> &mdash; 11 people: Nigeria (5), Tanzania (3), Botswana (1), Namibia (2).
-        <span class="why">column G is empty, so the office-phone row is left out of the signature entirely. Fill column G and rebuild if these offices do have a landline.</span>
-      </li>
-    </ul>
-  </details>
 
   <section class="region" id="international" data-region="international">
     <div class="region-head">
