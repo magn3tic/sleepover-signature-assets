@@ -10,7 +10,7 @@ they live in a repo with stable, versioned URLs.
 Always through jsDelivr, always pinned to a tag:
 
 ```
-https://cdn.jsdelivr.net/gh/magn3tic/sleepover-signature-assets@v1.2.0/icons/mail.png
+https://cdn.jsdelivr.net/gh/magn3tic/sleepover-signature-assets@v1.3.0/icons/mail.png
 ```
 
 A tag is immutable on jsDelivr: once a version has been served it is cached
@@ -53,7 +53,7 @@ workbook, so it can be sent straight from there.
 Two different jobs in one repo, and the difference matters. The images are
 pinned by tag and must never change under a signature already sitting in
 someone's mail client. The pages are expected to change, and are served off
-`main`. Pushing a page therefore does not touch what `@v1.2.0` serves.
+`main`. Pushing a page therefore does not touch what `@v1.3.0` serves.
 
 The pages are generated — they are built from the workbook by the pipeline in
 `magn3tic/sleepover-signature-pipeline` and copied here by its
