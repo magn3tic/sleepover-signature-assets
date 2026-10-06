@@ -151,6 +151,10 @@ h1,h2,h3{margin:0; font-weight:700; line-height:1.15;}
   padding-bottom:var(--sp-2); border-bottom:1px solid var(--gray-light);
 }
 .steps h2:first-child{margin-top:0;}
+.steps .steps-mine{margin:0 0 var(--sp-4); font-size:15px;}
+.steps ol.steps-visual{list-style:none; padding:0; display:grid; gap:var(--sp-4);}
+.steps ol.steps-visual li{margin:0;}
+.steps ol.steps-visual img{display:block; width:100%; height:auto; border:1px solid var(--gray-light); border-radius:var(--r-lg);}
 .steps .steps-note{margin:0 0 var(--sp-3); font-size:14px; color:var(--gray-darkest);}
 .steps ol{margin:0; padding-left:22px;}
 .steps li{margin-bottom:var(--sp-3); font-size:15px;}
@@ -444,16 +448,19 @@ h1,h2,h3{margin:0; font-weight:700; line-height:1.15;}
 
 <div class="steps">
     <h2>Outlook for Windows &mdash; recommended</h2>
-    <ol>
-        <li>Click <b>Download signature (.htm)</b>.</li>
-        <li>Close Outlook.</li>
-        <li>Open File Explorer and paste this into the address bar:
-            <code>%APPDATA%\Microsoft\Signatures</code></li>
-        <li>Copy the downloaded <code>SleepOver-Matoks-REC.htm</code> into that folder. If an older
-            SleepOver signature is there, replace it.</li>
-        <li>Open Outlook &rarr; <b>File &rarr; Options &rarr; Mail &rarr; Signatures</b>.</li>
-        <li>Pick <b>SleepOver-Matoks-REC</b> under <b>New messages</b> and <b>Replies/forwards</b> &rarr; <b>OK</b>.</li>
-        <li>Send yourself a test email and reply to it to check the signature.</li>
+    <!-- The same seven pictures on every page (guide/, drawn by
+         install-guide/step.html with ?generic=1); the person's own file and
+         signature name are spelled out here, above them. -->
+    <p class="steps-mine">Your file is <code>SleepOver-Matoks-REC.htm</code>, and in Outlook your
+       signature is listed as <b>SleepOver-Matoks-REC</b>.</p>
+    <ol class="steps-visual">
+        <li><img src="guide/step-1.png" width="1200" height="720" loading="lazy" alt="Step 1: click Download signature (.htm). A file with your name is saved to Downloads."></li>
+        <li><img src="guide/step-2.png" width="1200" height="720" loading="lazy" alt="Step 2: close Outlook."></li>
+        <li><img src="guide/step-3.png" width="1200" height="720" loading="lazy" alt="Step 3: open File Explorer, paste %APPDATA%\Microsoft\Signatures into the address bar and press Enter."></li>
+        <li><img src="guide/step-4.png" width="1200" height="720" loading="lazy" alt="Step 4: drag your .htm file from Downloads into the Signatures folder; replace the old one if asked."></li>
+        <li><img src="guide/step-5.png" width="1200" height="720" loading="lazy" alt="Step 5: open Outlook, go to File, Options, Mail and click Signatures."></li>
+        <li><img src="guide/step-6.png" width="1200" height="720" loading="lazy" alt="Step 6: select your signature, choose it for New messages and Replies/forwards, then click OK."></li>
+        <li><img src="guide/step-7.png" width="1200" height="720" loading="lazy" alt="Step 7: click New Email: your signature appears on its own. Send yourself a test and reply to it."></li>
     </ol>
 
     <h2>Outlook Web, new Outlook and Mac &mdash; paste</h2>
