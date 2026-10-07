@@ -152,6 +152,13 @@ h1,h2,h3{margin:0; font-weight:700; line-height:1.15;}
 }
 .steps h2:first-child{margin-top:0;}
 .steps .steps-mine{margin:0 0 var(--sp-4); font-size:15px;}
+.steps h2 .opt{display:inline-block; margin-right:var(--sp-2); padding:2px 10px; border-radius:999px;
+  background:var(--primary); color:#fff; font-size:12px; letter-spacing:.08em; text-transform:uppercase; vertical-align:2px;}
+.steps .copy-path{display:flex; flex-wrap:wrap; align-items:center; gap:var(--sp-3); margin-top:var(--sp-3);
+  padding:var(--sp-3) var(--sp-4); border:1px solid var(--gray-light); border-radius:var(--r-lg); background:var(--light-alt); font-size:15px;}
+.steps .copy-path code{font-size:15px; background:#fff;}
+.steps .copy-path .btn{color:var(--dark); border-color:#bdbdc2;}
+.steps .copy-path .btn:hover{background:var(--gray-light);}
 .steps ol.steps-visual{list-style:none; padding:0; display:grid; gap:var(--sp-4);}
 .steps ol.steps-visual li{margin:0;}
 .steps ol.steps-visual img{display:block; width:100%; height:auto; border:1px solid var(--gray-light); border-radius:var(--r-lg);}
@@ -447,8 +454,8 @@ h1,h2,h3{margin:0; font-weight:700; line-height:1.15;}
   </div>
 
 <div class="steps">
-    <h2>Outlook for Windows &mdash; recommended</h2>
-    <!-- The same seven pictures on every page (guide/, drawn by
+    <h2><span class="opt">Option 1 &middot; recommended</span> Outlook for Windows &mdash; download</h2>
+    <!-- The same pictures on every page (guide/, drawn by
          install-guide/step.html with ?generic=1); the person's own file and
          signature name are spelled out here, above them. -->
     <p class="steps-mine">Your file is <code>Gobopaone-Gaseitsiwe.htm</code>, and in Outlook your
@@ -456,21 +463,24 @@ h1,h2,h3{margin:0; font-weight:700; line-height:1.15;}
     <ol class="steps-visual">
         <li><img src="guide/step-1.png" width="1200" height="720" loading="lazy" alt="Step 1: click Download signature (.htm). A file with your name is saved to Downloads."></li>
         <li><img src="guide/step-2.png" width="1200" height="720" loading="lazy" alt="Step 2: close Outlook."></li>
-        <li><img src="guide/step-3.png" width="1200" height="720" loading="lazy" alt="Step 3: open File Explorer, paste %APPDATA%\Microsoft\Signatures into the address bar and press Enter."></li>
+        <li><img src="guide/step-3.png" width="1200" height="720" loading="lazy" alt="Step 3: open File Explorer, paste %APPDATA%\Microsoft\Signatures into the address bar and press Enter.">
+          <div class="copy-path"><span>Paste this into the File Explorer address bar:</span>
+            <code>%APPDATA%\Microsoft\Signatures</code>
+            <button class="btn btn-sm" data-copy-text="%APPDATA%\Microsoft\Signatures"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy path</span></button></div></li>
         <li><img src="guide/step-4.png" width="1200" height="720" loading="lazy" alt="Step 4: drag your .htm file from Downloads into the Signatures folder; replace the old one if asked."></li>
         <li><img src="guide/step-5.png" width="1200" height="720" loading="lazy" alt="Step 5: open Outlook, go to File, Options, Mail and click Signatures."></li>
         <li><img src="guide/step-6.png" width="1200" height="720" loading="lazy" alt="Step 6: select your signature, choose it for New messages and Replies/forwards, then click OK."></li>
         <li><img src="guide/step-7.png" width="1200" height="720" loading="lazy" alt="Step 7: click New Email: your signature appears on its own. Send yourself a test and reply to it."></li>
     </ol>
 
-    <h2>Outlook Web, new Outlook and Mac &mdash; paste</h2>
-    <p class="steps-note">Only for these apps, which have no signature file to install. On Windows, use the download above.</p>
-    <ol>
-        <li>Click <b>Copy (Outlook Web / Mac only)</b>.</li>
-        <li><b>Outlook Web / new Outlook:</b> Settings (gear) &rarr; <b>Mail &rarr; Compose and reply &rarr; Email signature</b>.<br>
-            <b>Outlook Mac:</b> <b>Outlook &rarr; Settings &rarr; Signatures</b> &rarr; <b>+</b>.</li>
-        <li>Paste with <b>Ctrl + V</b> (Windows) or <b>Cmd + V</b> (Mac). Do not use "paste as plain text".</li>
-        <li>Assign the signature to <b>New messages</b> and <b>Replies/forwards</b>, then save.</li>
+    <h2><span class="opt">Option 2</span> Outlook Web, new Outlook and Mac &mdash; paste</h2>
+    <p class="steps-note">Only for these apps, which have no signature file to install. On Outlook for Windows, use Option 1.</p>
+    <ol class="steps-visual">
+        <li><img src="guide/paste-step-1.png" width="1200" height="720" loading="lazy" alt="Option 2, step 1: click Copy (Outlook Web / Mac only). Your signature is now on the clipboard."></li>
+        <li><img src="guide/paste-step-2.png" width="1200" height="720" loading="lazy" alt="Option 2, step 2: in Outlook on the web or the new Outlook open Settings, Account, Signatures (on a Mac: Outlook, Settings, Signatures)."></li>
+        <li><img src="guide/paste-step-3.png" width="1200" height="720" loading="lazy" alt="Option 2, step 3: click Add signature, type your name as its name, click in the box and paste with Ctrl + V or Cmd + V."></li>
+        <li><img src="guide/paste-step-4.png" width="1200" height="720" loading="lazy" alt="Option 2, step 4: tick Set default for new messages and Set default for replies and forwards, then click Save."></li>
+        <li><img src="guide/paste-step-5.png" width="1200" height="720" loading="lazy" alt="Option 2, step 5: click New mail: your signature appears on its own. Send yourself a test and reply to it."></li>
     </ol>
 
 </div>
@@ -577,6 +587,9 @@ document.addEventListener("click", function(ev){
     return;
   }
   /* Plain-text copy of the published page URL, for sending someone their link. */
+  /* Plain-text copy of a value shown on the page (the Signatures folder path). */
+  var ct = ev.target.closest("[data-copy-text]");
+  if(ct){ copyText(ct.getAttribute("data-copy-text")).then(function(ok){ flashButton(ct, ok, "Path copied"); }); return; }
   var lk = ev.target.closest("[data-link]");
   if(lk) copyText(lk.getAttribute("data-link")).then(function(ok){ flashButton(lk, ok, "Link copied"); });
 });

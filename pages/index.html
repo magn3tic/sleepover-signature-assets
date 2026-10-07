@@ -11610,6 +11610,9 @@ document.addEventListener("click", function(ev){
     return;
   }
   /* Plain-text copy of the published page URL, for sending someone their link. */
+  /* Plain-text copy of a value shown on the page (the Signatures folder path). */
+  var ct = ev.target.closest("[data-copy-text]");
+  if(ct){ copyText(ct.getAttribute("data-copy-text")).then(function(ok){ flashButton(ct, ok, "Path copied"); }); return; }
   var lk = ev.target.closest("[data-link]");
   if(lk) copyText(lk.getAttribute("data-link")).then(function(ok){ flashButton(lk, ok, "Link copied"); });
 });
