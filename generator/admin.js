@@ -181,7 +181,9 @@ const CSS = `
 body.adm-on .toolbar{top:116px;}
 .card-actions .adm-btn{display:inline-flex;}
 .adm-pending{outline:2px solid var(--secondary);}
-.adm-dialog{border:1px solid var(--border-strong);border-radius:var(--r-lg);background:var(--dark-alt);color:var(--text);padding:0;max-width:min(1180px,96vw);width:100%;}
+.adm-dialog{border:1px solid var(--border-strong);border-radius:var(--r-lg);background:var(--dark-alt);color:var(--text);padding:0;max-width:min(1180px,96vw);width:100%;max-height:94vh;}
+.adm-dialog[open]{display:flex;flex-direction:column;}
+.adm-dialog .adm-body{overflow:auto;flex:1 1 auto;}
 .adm-dialog::backdrop{background:rgba(0,0,0,.7);}
 .adm-dialog.small{max-width:560px;}
 .adm-head{display:flex;align-items:center;gap:var(--sp-3);padding:var(--sp-4) var(--sp-6);border-bottom:1px solid var(--border);}

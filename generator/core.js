@@ -341,8 +341,8 @@ function validate(rec, cfg, others) {
   if (!tidy(rec.email)) errs.push("Email is required.");
   else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(tidy(rec.email))) errs.push("Email does not look right: " + rec.email);
   if (!region(cfg, rec.region)) errs.push("Pick a region.");
-  if (!rec.slug) errs.push("Missing page name (slug).");
-  if (!rec.nameImage) errs.push("Missing name artwork.");
+  if (tidy(rec.name) && !rec.slug) errs.push("Missing page name (slug).");
+  if (tidy(rec.name) && !rec.nameImage) errs.push("Missing name artwork.");
   if (!(rec.address || []).length) errs.push("Address is required.");
   if (others && others.some((o) => o.slug === rec.slug)) errs.push("Another signature already uses the page name " + rec.slug + ".");
   return errs;
