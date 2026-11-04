@@ -170,8 +170,9 @@ async function follow(sha, onStep) {
   while (Date.now() < deadline) {
     try {
       const b = await gh(`/repos/${S.repo}/pages/builds/latest`);
+      // "errored" is also what a build superseded by a newer one for the same
+      // commit reports, so only "built" ends the wait; otherwise keep polling.
       if (b.commit === head && b.status === "built") return "live";
-      if (b.commit === head && b.status === "errored") return { failed: "https://github.com/" + S.repo + "/settings/pages" };
     } catch (e) { if (e.status === 403 || e.status === 404) return "unknown"; }
     if (slow()) onStep("pages", "Updating the website…" + slow());
     await wait(4000);

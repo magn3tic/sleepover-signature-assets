@@ -84,7 +84,17 @@ jobs:
           git commit -m "Pages: ${MSG} (images @${{ steps.tag.outputs.tag }})"
           git push origin HEAD:main
 
-      - name: Rebuild GitHub Pages
+      # The push above normally starts a Pages build by itself. Only ask for
+      # one when it did not: two builds for the same commit cancel each other.
+      - name: Make sure GitHub Pages rebuilds
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh api -X POST "repos/$GITHUB_REPOSITORY/pages/builds" || echo "Pages build request failed; the push usually triggers one anyway."
+        run: |
+          HEAD_SHA=$(git rev-parse HEAD)
+          for i in 1 2 3 4 5 6; do
+            sleep 10
+            LATEST=$(gh api "repos/$GITHUB_REPOSITORY/pages/builds/latest" --jq .commit 2>/dev/null || true)
+            [ "$LATEST" = "$HEAD_SHA" ] && { echo "Pages build for $HEAD_SHA is under way."; exit 0; }
+          done
+          echo "No Pages build for $HEAD_SHA yet; requesting one."
+          gh api -X POST "repos/$GITHUB_REPOSITORY/pages/builds" || echo "Request failed; check Settings > Pages."
