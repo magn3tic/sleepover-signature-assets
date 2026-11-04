@@ -53,7 +53,12 @@ async function gh(path, opts) {
       "X-GitHub-Api-Version": "2022-11-28"
     }, opts.body ? { "Content-Type": "application/json" } : {}),
     body: opts.body ? JSON.stringify(opts.body) : undefined,
-    cache: "no-store"
+    cache: "no-store",
+    // A request that hangs (GitHub having a bad day) must not freeze the panel.
+    signal: AbortSignal.timeout(opts.timeout || 30000)
+  }).catch((e) => {
+    const err = new Error(e.name === "TimeoutError" ? "GitHub did not answer in time. Try again in a minute." : "Could not reach GitHub: " + e.message);
+    err.status = 0; throw err;
   });
   if (!res.ok) {
     let msg = res.status + " " + res.statusText;
@@ -160,13 +165,14 @@ async function follow(sha, onStep) {
   if (run.conclusion !== "success") return { failed: run.html_url };
 
   onStep("pages", "Updating the website…");
-  const head = (await gh(`/repos/${S.repo}/git/ref/heads/main`)).object.sha;
+  let head = null;
+  try { head = (await gh(`/repos/${S.repo}/git/ref/heads/main`)).object.sha; } catch (e) { return "unknown"; }
   while (Date.now() < deadline) {
     try {
       const b = await gh(`/repos/${S.repo}/pages/builds/latest`);
       if (b.commit === head && b.status === "built") return "live";
       if (b.commit === head && b.status === "errored") return { failed: "https://github.com/" + S.repo + "/settings/pages" };
-    } catch (e) { return "unknown"; }
+    } catch (e) { if (e.status === 403 || e.status === 404) return "unknown"; }
     if (slow()) onStep("pages", "Updating the website…" + slow());
     await wait(4000);
   }
