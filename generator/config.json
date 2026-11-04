@@ -1,0 +1,60 @@
+{
+  "$comment": "repo + cdnTag decide every image URL. cdnTag is bumped by the publish workflow when artwork changes; do not edit it by hand.",
+  "repo": "magn3tic/sleepover-signature-assets",
+  "cdnTag": "v1.7.0",
+  "nameScale": 0.5,
+  "nameMaxW": 300,
+  "logoW": 150,
+  "fourwaysPin": "https://maps.app.goo.gl/4YZ1YCxyxTXiUDC57",
+  "regions": [
+    {
+      "key": "International",
+      "label": "SleepOver International",
+      "heading": "INTERNATIONAL",
+      "assetFolder": "International",
+      "sheet": "SLEEPOVER INTERNATIONAL"
+    },
+    {
+      "key": "South Africa",
+      "label": "SleepOver South Africa",
+      "heading": "SOUTH AFRICA",
+      "assetFolder": "South Africa",
+      "sheet": "SLEEPOVER SOUTH AFRICA"
+    },
+    {
+      "key": "Safaris",
+      "label": "SleepOver Safaris",
+      "heading": "SAFARIS",
+      "assetFolder": "Safari",
+      "sheet": "SLEEPOVER SAFARIS"
+    },
+    {
+      "key": "Nigeria",
+      "label": "SleepOver Nigeria",
+      "heading": "NIGERIA",
+      "assetFolder": "Nigeria",
+      "sheet": "SLEEPOVER NIGERIA"
+    },
+    {
+      "key": "Tanzania",
+      "label": "SleepOver Tanzania",
+      "heading": "TANZANIA",
+      "assetFolder": "Tanzania",
+      "sheet": "SLEEPOVER TANZANIA"
+    },
+    {
+      "key": "Botswana",
+      "label": "SleepOver Botswana",
+      "heading": "BOTSWANA",
+      "assetFolder": "Botswana",
+      "sheet": "SLEEPOVER BOTSWANA"
+    },
+    {
+      "key": "Namibia",
+      "label": "SleepOver Namibia",
+      "heading": "NAMIBIA",
+      "assetFolder": "Namibia",
+      "sheet": "SLEEPOVER NAMIBIA"
+    }
+  ]
+}

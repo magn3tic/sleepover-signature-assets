@@ -1,0 +1,90 @@
+# Publishes the signatures whenever their data or artwork changes on main.
+#
+# The admin panel on pages/index.html commits generator/people.json (and a PNG
+# for new artwork) straight to main; this picks it up:
+#
+#   1. validate people.json (a bad save never reaches the pages)
+#   2. if any image changed since the current tag, cut the next tag
+#      (jsDelivr caches a tag forever, so images already sitting in people's
+#      mail clients never change) and point config.json at it
+#   3. rebuild pages/, commit, push
+#   4. ask GitHub Pages to build (pushes made with GITHUB_TOKEN do not always
+#      trigger it on their own)
+name: Publish signatures
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "generator/**"
+      - "names/**"
+      - "regions/**"
+      - "icons/**"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+# One publish at a time, in order: two saves a minute apart must not race.
+concurrency:
+  group: publish-signatures
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main          # the latest main, not the triggering commit: an earlier run may have pushed since
+          fetch-depth: 0     # tags + history, for the image diff
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Validate people.json
+        run: node generator/build.js --check
+
+      - name: Tag new artwork
+        id: tag
+        run: |
+          set -euo pipefail
+          TAG=$(node -p "require('./generator/config.json').cdnTag")
+          if git rev-parse -q --verify "refs/tags/$TAG" >/dev/null && git diff --quiet "$TAG" HEAD -- names regions icons; then
+            echo "Images unchanged since $TAG."
+            echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          # Next minor after the highest vX.Y.Z tag, so a tag is never reused.
+          LAST=$(git tag -l 'v*.*.*' --sort=-v:refname | head -1)
+          NEXT=$(node -e "const [a,b]='${LAST:-v1.0.0}'.slice(1).split('.').map(Number);console.log('v'+a+'.'+(b+1)+'.0')")
+          git tag "$NEXT" HEAD
+          git push origin "$NEXT"
+          node -e "const f='generator/config.json',fs=require('fs'),c=JSON.parse(fs.readFileSync(f));c.cdnTag='$NEXT';fs.writeFileSync(f,JSON.stringify(c,null,2)+'\n')"
+          echo "New artwork: tagged $NEXT."
+          echo "tag=$NEXT" >> "$GITHUB_OUTPUT"
+
+      - name: Build pages
+        run: SO_REPO="$GITHUB_REPOSITORY" node generator/build.js
+
+      - name: Commit pages
+        run: |
+          set -euo pipefail
+          git config user.name "signature-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A pages generator/config.json
+          if git diff --cached --quiet; then
+            echo "Pages already up to date."
+            exit 0
+          fi
+          MSG=$(git log -1 --format=%s "$GITHUB_SHA")
+          git commit -m "Pages: ${MSG} (images @${{ steps.tag.outputs.tag }})"
+          git push origin HEAD:main
+
+      - name: Rebuild GitHub Pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X POST "repos/$GITHUB_REPOSITORY/pages/builds" || echo "Pages build request failed; the push usually triggers one anyway."
