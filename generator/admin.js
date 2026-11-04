@@ -142,7 +142,8 @@ async function commit(message, change, png) {
 
 /** Follows the publish run for `sha` and resolves when the pages are live. */
 async function follow(sha, onStep) {
-  const deadline = Date.now() + 6 * 60 * 1000;
+  const started = Date.now(), deadline = started + 15 * 60 * 1000;
+  const slow = () => Date.now() - started > 3 * 60 * 1000 ? " GitHub is slow right now; this can take a few more minutes." : "";
   const wait = (ms) => new Promise((r) => setTimeout(r, ms));
   let run = null;
   onStep("publish", "Publishing…");
@@ -152,6 +153,7 @@ async function follow(sha, onStep) {
       run = runs.workflow_runs.find((r) => r.name === "Publish signatures") || run;
     } catch (e) { if (e.status === 403 || e.status === 404) { onStep("publish", "Saved. Publishing takes about two minutes."); return "unknown"; } }
     if (run && run.status === "completed") break;
+    if (slow()) onStep("publish", "Publishing…" + slow());
     await wait(4000);
   }
   if (!run || run.status !== "completed") return "timeout";
@@ -165,6 +167,7 @@ async function follow(sha, onStep) {
       if (b.commit === head && b.status === "built") return "live";
       if (b.commit === head && b.status === "errored") return { failed: "https://github.com/" + S.repo + "/settings/pages" };
     } catch (e) { return "unknown"; }
+    if (slow()) onStep("pages", "Updating the website…" + slow());
     await wait(4000);
   }
   return "timeout";
