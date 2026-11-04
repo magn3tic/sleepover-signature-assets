@@ -104,8 +104,8 @@ repo**, with a token for it:
 
 - Fine-grained token (recommended): github.com → Settings → Developer settings →
   Fine-grained tokens → Generate. Resource owner `magn3tic`, only this
-  repository; permissions Contents *Read and write*, Actions *Read*, Pages
-  *Read*. The org may need to approve it.
+  repository; permissions Contents *Read and write* and Actions *Read*. The org may need
+  to approve it.
 - A classic token with the `repo` scope also works.
 
 To take someone's access away, remove them from the repo (or revoke the token).

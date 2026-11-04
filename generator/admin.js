@@ -165,17 +165,26 @@ async function follow(sha, onStep) {
   if (run.conclusion !== "success") return { failed: run.html_url };
 
   onStep("pages", "Updating the website…");
-  let head = null;
-  try { head = (await gh(`/repos/${S.repo}/git/ref/heads/main`)).object.sha; } catch (e) { return "unknown"; }
+  // Live = the published index carries the commit it was built from (see
+  // SO_SOURCE in publish.yml). The Pages API says "built" a minute or two
+  // before the new files are actually served, so it is not asked.
+  const index = new URL("index.html", location.href);
   while (Date.now() < deadline) {
     try {
-      const b = await gh(`/repos/${S.repo}/pages/builds/latest`);
-      // "errored" is also what a build superseded by a newer one for the same
-      // commit reports, so only "built" ends the wait; otherwise keep polling.
-      if (b.commit === head && b.status === "built") return "live";
-    } catch (e) { if (e.status === 403 || e.status === 404) return "unknown"; }
+      index.search = "?live=" + Date.now();
+      const html = await (await fetch(index, { cache: "no-store", signal: AbortSignal.timeout(20000) })).text();
+      const m = html.match(/<meta name="so-source" content="([0-9a-f]{40})"/);
+      if (m && m[1] === sha) return "live";
+      // A later save was built on top of ours: ours is live too.
+      if (m && m[1] !== sha) {
+        try {
+          const cmp = await gh(`/repos/${S.repo}/compare/${sha}...${m[1]}`);
+          if (cmp.status === "ahead" || cmp.status === "identical") return "live";
+        } catch (e) { /* keep waiting */ }
+      }
+    } catch (e) { /* keep waiting */ }
     if (slow()) onStep("pages", "Updating the website…" + slow());
-    await wait(4000);
+    await wait(5000);
   }
   return "timeout";
 }
@@ -267,7 +276,7 @@ function openSettings(reason) {
       <p class="hint">Stored in this browser only. Create one at
         <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com → Settings → Fine-grained tokens</a>:
         resource owner <b>${esc((S.repo || "magn3tic/x").split("/")[0])}</b>, only the repository <b>${esc((S.repo || "x/sleepover-signature-assets").split("/")[1])}</b>,
-        permissions <b>Contents: Read and write</b>, <b>Actions: Read</b>, <b>Pages: Read</b>.</p>
+        permissions <b>Contents: Read and write</b> and <b>Actions: Read</b>.</p>
       <label>Artwork font</label>
       <p style="margin:0;font-size:14px">${fontLine}</p>
       <p id="adm-test" class="hint" role="status"></p>

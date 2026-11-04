@@ -68,7 +68,9 @@ jobs:
           echo "tag=$NEXT" >> "$GITHUB_OUTPUT"
 
       - name: Build pages
-        run: SO_REPO="$GITHUB_REPOSITORY" node generator/build.js
+        # SO_SOURCE marks pages/index.html with the commit it was built from; the
+        # admin panel waits for that marker to know its change is really live.
+        run: SO_REPO="$GITHUB_REPOSITORY" SO_SOURCE="$(git rev-parse HEAD)" node generator/build.js
 
       - name: Commit pages
         run: |

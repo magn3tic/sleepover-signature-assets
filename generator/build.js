@@ -586,6 +586,7 @@ ${signature(emp, id, ICON_BASE)}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SleepOver Email Signatures &mdash; Master Check</title>
+<meta name="so-source" content="${esc(process.env.SO_SOURCE || "")}">
 <meta name="robots" content="noindex">
 <style>${fontFaces}${baseCSS}
 

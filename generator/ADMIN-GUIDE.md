@@ -17,7 +17,7 @@ page the client uses:
    *Personal access tokens* → *Fine-grained tokens* → *Generate new token*:
    - Resource owner: **magn3tic**
    - Repository access: *Only select repositories* → **sleepover-signature-assets**
-   - Permissions: **Contents: Read and write**, **Actions: Read**, **Pages: Read**
+   - Permissions: **Contents: Read and write** and **Actions: Read**
    - Copy the token (it starts with `github_pat_`).
 4. On the signatures page, click the **gear** at the top right, paste the token,
    keep *Remember on this computer* ticked, click **Save and connect**.
