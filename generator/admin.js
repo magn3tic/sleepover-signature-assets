@@ -180,7 +180,7 @@ async function follow(sha, onStep) {
 }
 
 /* ------------------------------------ UI ---------------------------------- */
-const CSS = `
+const STYLE = `
 .adm-bar{position:sticky;top:64px;z-index:35;background:#3a1d0f;border-bottom:1px solid var(--primary);}
 .adm-bar .wrap{display:flex;align-items:center;gap:var(--sp-3);flex-wrap:wrap;min-height:52px;font-size:14px;}
 .adm-bar .tag{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:var(--primary);padding:3px 8px;border-radius:3px;}
@@ -652,7 +652,7 @@ function markPending(slug) {
 async function start(opts) {
   if (!S.started) {
     S.started = true;
-    document.head.appendChild(ui(`<style>${CSS}</style>`));
+    document.head.appendChild(ui(`<style>${STYLE}</style>`));
     let fallback = "magn3tic/sleepover-signature-assets";
     try { fallback = (await (await fetch("../generator/config.json", { cache: "no-store" })).json()).repo || fallback; } catch (e) {}
     S.repo = detectRepo(fallback);
