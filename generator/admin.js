@@ -629,7 +629,11 @@ async function publish(message, change, png, info) {
   try { sha = await commit(message, change, png); }
   catch (e) {
     step("save", "Not saved", "bad");
-    result.innerHTML = `<div class="adm-errors">${esc(e.message)}</div>`;
+    $(".adm-foot .msg", d).textContent = "Nothing was changed.";
+    const why = e.status === 403
+      ? "Your token can read the repository but not write to it. Create a new token with <b>Repository access: Only select repositories</b> (this one) and <b>Contents: Read and write</b>, then paste it in Settings (gear icon)."
+      : esc(e.message);
+    result.innerHTML = `<div class="adm-errors">${why}</div>`;
     return;
   }
   step("save", "Saved to GitHub", "done");
