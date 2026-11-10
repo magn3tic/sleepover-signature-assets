@@ -1,7 +1,7 @@
 {
   "$comment": "repo + cdnTag decide every image URL. cdnTag is bumped by the publish workflow when artwork changes; do not edit it by hand.",
   "repo": "magn3tic/sleepover-signature-assets",
-  "cdnTag": "v1.7.0",
+  "cdnTag": "v1.8.0",
   "nameScale": 0.5,
   "nameMaxW": 300,
   "logoW": 150,
