@@ -1306,6 +1306,22 @@
     "nameImage": "names/tanzania/timothy-titus.png"
   },
   {
+    "slug": "Gabriel-Arias",
+    "region": "Tanzania",
+    "name": "Gabriel Arias",
+    "position": "DEVELOPER",
+    "phone": "",
+    "email": "gabriel@mag.cr",
+    "officePhone": "",
+    "website": "sleepover.travel",
+    "address": [
+      "Plot No. 418 Toure Drive,",
+      "Msasani Peninsula, Dar Es Salaam,",
+      "Tanzania"
+    ],
+    "nameImage": "names/tanzania/gabriel-arias.png"
+  },
+  {
     "slug": "Gobopaone-Gaseitsiwe",
     "region": "Botswana",
     "name": "Gobopaone Gaseitsiwe",
