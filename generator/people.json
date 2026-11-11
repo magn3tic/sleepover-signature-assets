@@ -557,12 +557,15 @@
     "name": "Sheldon Clements",
     "position": "FACILITIES MANAGER",
     "phone": "+27 (0)84 581 9561",
-    "email": "sheldon.clements@sleepover.travel",
-    "officePhone": "+27 (0)10 110 9900",
+    "email": "sheldon.clements@sleepoverint.com",
+    "officePhone": "+27 (0)10 110 9910",
     "website": "sleepover.travel",
     "address": [
-      "7 Georgian Crescent West,",
-      "Bryanston, Johannesburg, 2021"
+      "Satellite Office:",
+      "Little Fourways Office Park,",
+      "Block A, 1 Leslie Avenue,",
+      "Fourways, Johannesburg,",
+      "South Africa"
     ],
     "nameImage": "names/south-africa/sheldon-clements.png"
   },
